@@ -5,6 +5,8 @@
         "queue": "cpp",
         "ostream": "cpp",
         "string": "cpp",
-        "xlocmon": "cpp"
+        "xlocmon": "cpp",
+        "iostream": "cpp",
+        "stack": "cpp"
     }
 }
