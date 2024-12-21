@@ -6,6 +6,7 @@
 
 using namespace std;
 
+// creates vector of the numbers and operators
 vector<string> collectParts(string eq) {
     vector<string> parts;
     string num = "";
@@ -26,11 +27,11 @@ vector<string> collectParts(string eq) {
     return parts;
 }
 
-int calculate(string eq) {
+// calculates expression
+double calculate(string eq) {
     double ans = 0.0;
     vector<string> parts;
     queue<string> operation;
-    string op = "";
 
     if(eq.size() != 0){
         parts = collectParts(eq);
@@ -45,23 +46,13 @@ int calculate(string eq) {
                 ans += stod(part);
             }
             else {
-                op = operation.front();
+                 string op = operation.front();
                 operation.pop();
-                if(op == "+"){
-                    ans += stod(part);
-                }
-                else if (op == "-"){
-                    ans -= stod(part);
-                }
-                else if (op == "*"){
-                    ans *= stod(part);
-                }
-                else if (op == "/"){
-                    ans /= stod(part);
-                }
-                else {
-                    cout << "erm" << endl;
-                }
+                if(op == "+"){ ans += stod(part); }
+                else if (op == "-"){ ans -= stod(part); }
+                else if (op == "*"){ ans *= stod(part); }
+                else if (op == "/"){ ans /= stod(part); }
+                else { cout << "erm" << endl; }
             }
         }
 

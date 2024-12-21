@@ -3,6 +3,8 @@
         "vector": "cpp",
         "xstring": "cpp",
         "queue": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "string": "cpp",
+        "xlocmon": "cpp"
     }
 }
