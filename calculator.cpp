@@ -71,6 +71,8 @@ double calc(string eq) {
         else if(part == ")") { // if closing par
             while(!ops.empty() && (ops.top() != "()"))
             {
+                // issue is a null is top is null so when stod is called for a null value a segmentation error is thrown
+                // to fix just do a null check 
                 double val2 = stod(nums.top());
                 nums.pop();
                  
