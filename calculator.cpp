@@ -16,25 +16,24 @@ vector<string> collectParts(string eq) {
         if(isdigit(c)){
             num += c;
         }
+        else if(c == '('){ parts.push_back("(");}
+        else if(c == ')'){ parts.push_back(")"); }
         else {
-            parts.push_back(num);
             string s(1,c);
             parts.push_back(s);
-            num.clear();
         }
     }
-    parts.push_back(num);
 
     return parts;
 }
 
 // apply operation
 double eval(double a, double b, string op){
-    if(op == "+"){ a += b; }
-    else if (op == "-"){ a -= b; }
-    else if (op == "*"){ a *= b; }
-    else if (op == "/"){ a /= b; }
-    return a;
+    if(op == "+"){ return a + b; }
+    else if (op == "-"){ return a - b; }
+    else if (op == "*"){ return a * b; }
+    else if (op == "/"){ return a / b; }
+    else { return NULL;}
 }
 
 // designates priority
@@ -54,7 +53,8 @@ double calc(string eq) {
     vector<string> parts;
 
     // stuff for infix evaluation
-    stack<string> nums, ops;
+    stack<string> nums;
+    stack<string> ops;
 
     if(eq.size() != 0){
         parts = collectParts(eq);
@@ -69,10 +69,8 @@ double calc(string eq) {
             nums.push(part);
         }
         else if(part == ")") { // if closing par
-            while(!ops.empty() && (ops.top() != "()"))
+            while(!ops.empty() && ops.top() != "(")
             {
-                // issue is a null is top is null so when stod is called for a null value a segmentation error is thrown
-                // to fix just do a null check 
                 double val2 = stod(nums.top());
                 nums.pop();
                  
@@ -90,16 +88,16 @@ double calc(string eq) {
             }
         }
         else { // if is operator
-            while(!ops.empty() && priority(ops.top()) >= priority(part)){
+            while(!ops.empty() && priority(ops.top()) >= priority(part) ){
                 double val2 = stod(nums.top());
                 nums.pop();
-                 
+
                 double val1 = stod(nums.top());
                 nums.pop();
-                 
+                    
                 string op = ops.top();
                 ops.pop();
-                 
+                    
                 nums.push(to_string(eval(val1, val2, op)));
             }
              
@@ -134,6 +132,8 @@ int main() {
     cin >> input;
 
     cout << "Answer: " << calc(input) << endl;
+
+    cin >> input;
 
 
     return 0;
