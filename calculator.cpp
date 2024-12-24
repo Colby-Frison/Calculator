@@ -19,9 +19,15 @@ vector<string> collectParts(string eq) {
         else if(c == '('){ parts.push_back("(");}
         else if(c == ')'){ parts.push_back(")"); }
         else {
+            parts.push_back(num);
             string s(1,c);
             parts.push_back(s);
+            num.clear();
         }
+    }
+
+    if (!num.empty()) {
+        parts.push_back(num);
     }
 
     return parts;
@@ -33,7 +39,7 @@ double eval(double a, double b, string op){
     else if (op == "-"){ return a - b; }
     else if (op == "*"){ return a * b; }
     else if (op == "/"){ return a / b; }
-    else { return NULL;}
+    else { return 0.0;}
 }
 
 // designates priority
@@ -122,19 +128,21 @@ double calc(string eq) {
     return stod(nums.top());
 }
 
-
-
-int main() {
-
+void run(){
     string input;
 
     cout << "Enter equation" << endl;
     cin >> input;
+    if(input != "stop"){
+        cout << "Answer: " << calc(input) << endl;
+        run();
+    }
 
-    cout << "Answer: " << calc(input) << endl;
+}
 
-    cin >> input;
+int main() {
 
+    run();
 
     return 0;
 }
